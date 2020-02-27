@@ -36,6 +36,7 @@ char getNextDirection(Elevator* elev) {
 }
 
 int getNextFloor(Elevator* elev) {   //setter nextFloor til i
+  //for current direction= up, sjekk første for-løkke, så andre. For current direction= ned, sjekk motsatt?
   for (int i = 0; i < HARDWARE_NUMBER_OF_FLOORS; i++) {   //husk at det kan være ting i upqueue som gjør at vi må bevege oss nedover
     if (elev->upQueue[i] == 1 && elev->pos.floor < i && elev->currentDir == 'U' && elev->pos.floor != -1) {
       elev->nextFloor = i;

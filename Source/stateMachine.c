@@ -4,8 +4,12 @@
 void commandUpState(Elevator* elev) {
   hardware_command_door_open(0);
   hardware_command_movement(HARDWARE_MOVEMENT_UP);
+  if (currentFloor()!=-1){
   elev->pos.floor = currentFloor();   //hva når den returnerer -1  (sjekk kommentar i commandDown)
-  elev->pos.above = 1;                //
+  }
+  else{                               //lagt til if-else her
+  elev->pos.above = 1;
+  }               //
   int correctFloor = isAtFloor(elev); // is at floor returnerer 1 hvis man er på riktig etasje
   setFloorSensor();   //slår på etasjeindikator lys bare:)
   if (correctFloor) {
@@ -16,8 +20,15 @@ void commandUpState(Elevator* elev) {
 void commandDownState(Elevator* elev) {
   hardware_command_door_open(0);
   hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
-  elev->pos.floor = currentFloor() - 1;   //blir dette riktig, ikke hvis man bruker pos.floor til noe annet?
-  elev->pos.above = 1;                    //passe på at hvis currentFloor()!=-1, kun at settes floor.
+  if (currentFloor()!=-1){     //starter alltid med dette
+  elev->pos.floor = currentFloor();   //-1 eller ikke:?
+  }
+  else{                               //lagt til if-else her
+  elev->pos.above = 1;
+  elev->pos.floor = pos.floor-1;    //går dette an?
+  }
+  ;   //blir dette riktig, ikke hvis man bruker pos.floor til noe annet?
+                                          //passe på at hvis currentFloor()!=-1, kun at settes floor.
   setFloorSensor();
   int correctFloor = isAtFloor(elev);
   if (correctFloor) {
