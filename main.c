@@ -1,3 +1,6 @@
+#include "mars.h"
+
+
 int main(){
 	printf("Hello world\n");
 	if(1<0){
